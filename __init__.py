@@ -53,24 +53,7 @@ def find_divs(bv, function):
             if 'mulu.dp' in str(instruction):
                 log_info(instruction)
                 mul_list.append(il_instr_count)
-                # reg1 = str(instruction).split('(')[1].split(')')[0].split(',')[0]
-                # reg2 = str(instruction).split('(')[1].split(')')[0].split(',')[1].replace(" ", "")
-                # log_info("Found at line : " + str(il_instr_count))
-                #
-                # reg1_val = function.get_reg_value_at_low_level_il_instruction(il_instr_count, reg1)
-                # if 'entry' not in str(reg1_val):
-                #     a_str = str(reg1_val).split(' ')[1].replace('>','')
-                #     a_val = int(a_str, 16)
-                #
-                # reg2_val = function.get_reg_value_at_low_level_il_instruction(il_instr_count, reg2)
-                # if 'entry' not in str(reg2_val):
-                #     b_str = str(reg2_val).split(' ')[1].replace('>','')
-                #     b_val = int(b_str, 16)
-                #
-                # if a_val > b_val :
-                #     c_val = a_val
-                # else:
-                #     c_val = b_val
+
 
 
             if '>>' in str(instruction):
@@ -106,8 +89,10 @@ def find_divs(bv, function):
         elif len(shift_list) >= 3:
             log_info("I have no idea how to handle this many shifts currently!")
 
-        last_str = "The divisor is : " + str(denominator)
+        last_str = "This is a divide by : " + str(denominator)
         log_info(last_str)
+        addr = get_address_input("Please provide an address for the comment", "Comment Address")
+        function.set_comment(addr, last_str)
 
 
 PluginCommand.register_for_function("Find divides", "Finds divides", find_divs)
